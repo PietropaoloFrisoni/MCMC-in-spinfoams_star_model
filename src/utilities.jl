@@ -33,21 +33,3 @@ function from_flat_index_to_vector_indices!(D, vector_of_unflatted_indices, numb
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -43,9 +43,9 @@ check_on_preliminary_parameters(data_folder_path, verbosity_random_walk, verbosi
 
   for user_conf in Configurations
     check_configuration!(user_conf, data_folder_path, verbosity_random_walk, verbosity_flux, chain_id)
-  end # cycle on configurations    
+  end
 
-end # end everywhere
+end
 
 println("done\n")
 
@@ -62,9 +62,9 @@ println("checking stored draws and operators...")
   for user_conf in Configurations
     conf = init_config(user_conf, data_folder_path)
     check_stored_operators!(user_conf, conf, data_folder_path, verbosity_flux, chain_id, number_of_chains)
-  end # cycle on configurations    
+  end
 
-end # end everywhere
+end
 println("done\n")
 
 println("-------------------------------------------------------------------------\n")
@@ -103,9 +103,9 @@ println("-----------------------------------------------------------------------
         else
           random_walk_function(conf.j, conf.D, conf.d, vertex, conf.N, conf.b, conf.σ, conf.draws_folder, conf.ampls_folder, chain_id, verbosity_random_walk)
         end
-      end  # check on add chains
+      end
 
-    end  # if on random walk
+    end
 
     #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -139,15 +139,15 @@ println("-----------------------------------------------------------------------
           else
             compute_angles_function!(conf.j_half_int, conf.D, draws, number_of_draws, angles, angles_sq, angles_vector_values, conf.N, conf.b, conf.angles_folder, conf.angles_sq_folder, chain_id)
           end
-        end  # check on add chains     
+        end
 
-      end # check on previously computed angles for this chain and random walk false
+      end
 
       if (chain_id == 1)
         println("done!\n")
       end
 
-    end # if on angles computation
+    end
 
     #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------         
 
@@ -180,16 +180,15 @@ println("-----------------------------------------------------------------------
           else
             compute_angles_pseudo_correlations_function!(conf.j_half_int, conf.d, draws, number_of_draws, angles_pseudo_correlations, angles_vector_values, conf.N, conf.b, conf.angles_pseudo_correlations_folder, chain_id)
           end
-        end  # check on add chains      
+        end
 
-      end # check on previously computed angles pseudo correlations and random walk false    
-
+      end
 
       if (chain_id == 1)
         println("done!\n")
       end
 
-    end # if on angles pseudo correlations
+    end
 
     #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
 
@@ -229,15 +228,15 @@ println("-----------------------------------------------------------------------
           else
             compute_volumes_function!(conf.j_half_int, conf.D, vertex, draws, number_of_draws, ampls, volumes, volumes_sq, volumes_matrix_values, conf.N, conf.b, conf.volumes_folder, conf.volumes_sq_folder, chain_id)
           end
-        end  # check on add chains                         
+        end
 
-      end # check on previously computed volumes and random walk false
+      end
 
       if (chain_id == 1)
         println("done!\n")
       end
 
-    end # if on volumes computation
+    end
 
     #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 
@@ -276,15 +275,15 @@ println("-----------------------------------------------------------------------
           else
             compute_volumes_pseudo_correlations_function!(conf.j_half_int, conf.D, draws, number_of_draws, ampls, vertex, volumes_pseudo_correlations, volumes_matrix_values, conf.N, conf.b, conf.volumes_pseudo_correlations_folder, chain_id, conf.volumes_correlations_node_1, conf.volumes_correlations_node_2)
           end
-        end  # check on add chains 
+        end
 
-      end # check on previously computed and random walk false      
+      end
 
       if (chain_id == 1)
         println("done!\n")
       end
 
-    end # if on volumes correlations 
+    end
 
     #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------     
 
@@ -325,21 +324,21 @@ println("-----------------------------------------------------------------------
           else
             compute_density_matrix_function!(conf.j, conf.D, vertex, draws, number_of_draws, ampls, density_matrix, conf.N, conf.b, conf.density_matrices_folder, chain_id, conf.subsystem, number_of_nodes_in_subsystem, density_matrix_linear_dim)
           end
-        end  # check on add chains 
+        end
 
-      end # check on previously computed and random walk false      
+      end
 
       if (chain_id == 1)
         println("done!\n")
       end
 
-    end # if on entropy computation      
+    end
 
     if (chain_id == 1)
       println("\n-------------------------------------------------------------------------\n")
     end
 
-  end # end conf cycle
+  end
 
 end # end everywhere --- PARALLELIZATION ENDS HERE
 
@@ -424,7 +423,7 @@ if (assemble_and_save_final_data == true)
         global user_EPRL_angles_spread_table = hcat(user_EPRL_angles_spread_table, angles_dataframes[2])
         global user_EPRL_angles_numerical_fluctuations_table = hcat(user_EPRL_angles_numerical_fluctuations_table, angles_dataframes[3])
       end
-    end # if on angle computation
+    end
 
     #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------             
 
@@ -436,7 +435,7 @@ if (assemble_and_save_final_data == true)
       else
         global user_EPRL_angles_correlations_table = hcat(user_EPRL_angles_correlations_table, angles_correlations_dataframe)
       end
-    end  # if on angle correlation computation
+    end
 
     #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------         
 
@@ -452,7 +451,7 @@ if (assemble_and_save_final_data == true)
         global user_EPRL_volumes_spread_table = hcat(user_EPRL_volumes_spread_table, volumes_dataframes[2])
         global user_EPRL_volumes_numerical_fluctuations_table = hcat(user_EPRL_volumes_numerical_fluctuations_table, volumes_dataframes[3])
       end
-    end # if on angle computation      
+    end
 
     #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------   
 
@@ -464,7 +463,7 @@ if (assemble_and_save_final_data == true)
       else
         global user_EPRL_volumes_correlations_table = hcat(user_EPRL_volumes_correlations_table, volumes_correlations_dataframe)
       end
-    end  # if on volumes correlation computation      
+    end
 
     #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------                   
 
@@ -478,13 +477,13 @@ if (assemble_and_save_final_data == true)
         global user_EPRL_entropy_table = hcat(user_EPRL_entropy_table, entropy_dataframe[1])
         global user_EPRL_entropy_numerical_fluctuations_table = hcat(user_EPRL_entropy_numerical_fluctuations_table, entropy_dataframe[2])
       end
-    end # if on entropy computation                 
+    end
 
 
     println("done!\n")
     println("\n-------------------------------------------------------------------------")
 
-  end # end conf cycle
+  end
 
   #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------   
   #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------   

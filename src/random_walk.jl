@@ -7,10 +7,10 @@ function random_walk_function(j::Float64, D::Int64, d::Int64, A::Array{Float64,5
   v4 = zeros(Float64, D)
   v5 = zeros(Float64, D)
 
-  draws = ElasticArray{Int64}(undef, 21, 0)     # some allocations    
+  draws = ElasticArray{Int64}(undef, 21, 0)
   ampls = ElasticArray{Float64}(undef, 0)
 
-  Truncated_Coefficients = zeros(Float64, D)    # some allocations   
+  Truncated_Coefficients = zeros(Float64, D)
   Normal_distribution = Normal(0, σ)
 
   for i = 0:d
@@ -28,13 +28,13 @@ function random_walk_function(j::Float64, D::Int64, d::Int64, A::Array{Float64,5
   end
 
   #Initial draw and gaussian 
-  draw = Array{Int64}(undef, 21)           # some allocations --- # 1 final slot for molteplicity
-  gaussian_draw = Array{Int64}(undef, 20)  # some allocations 
+  draw = Array{Int64}(undef, 21)
+  gaussian_draw = Array{Int64}(undef, 20)
 
   amp = 0.0
   while (amp == 0)
     for i = 1:20
-      @inbounds draw[i] = rand((1:D))     # some allocations        
+      @inbounds draw[i] = rand((1:D))
     end
     amp = star_amplitude(D, A, v1, v2, v3, v4, v5, draw)
   end
@@ -48,7 +48,7 @@ function random_walk_function(j::Float64, D::Int64, d::Int64, A::Array{Float64,5
   end
 
   #Proposed draw  
-  prop_draw = Array{Int64}(undef, 20)      # some allocations
+  prop_draw = Array{Int64}(undef, 20)
 
   acceptance_ratio = 0
   molteplicity = 1                              # initial molteplicity counter
@@ -120,8 +120,8 @@ function random_walk_function(j::Float64, D::Int64, d::Int64, A::Array{Float64,5
         if (n > b)
           # TODO avoid resizing at every iteration (pre-allocating assuming >~ 30% accept. rate and re-allocated only at the end) 
           # and eventually replace matrices with 1-d arrays (more efficient?)
-          resize!(draws, 21, size(draws)[2] + 1)     # some allocations
-          resize!(ampls, size(ampls)[1] + 1)         # some allocations
+          resize!(draws, 21, size(draws)[2] + 1)
+          resize!(ampls, size(ampls)[1] + 1)
           draw[21] = molteplicity
           draws[:, end] = draw[:]
           ampls[end] = amp
@@ -161,8 +161,8 @@ function random_walk_function(j::Float64, D::Int64, d::Int64, A::Array{Float64,5
 
     # final storage  
     if (n == N)
-      resize!(draws, 21, size(draws)[2] + 1)     # some allocations 
-      resize!(ampls, size(ampls)[1] + 1)         # some allocations 
+      resize!(draws, 21, size(draws)[2] + 1)
+      resize!(ampls, size(ampls)[1] + 1)
       draw[21] = molteplicity
       draws[:, end] .= draw[:]
       ampls[end] = amp
@@ -175,8 +175,8 @@ function random_walk_function(j::Float64, D::Int64, d::Int64, A::Array{Float64,5
 
   end # n cycle      
 
-  #This is such that draws has structure: [N,21], so the operators will be computed faster  
-  draws = transpose(draws)  # some allocations  
+  # This is such that draws has structure: [N,21], so the operators will be computed faster  
+  draws = transpose(draws)
 
   if (chain_id == 1)
     println("Done! $(acceptance_ratio*100/N)% of proposed draws have been accepted in master chain")
@@ -190,7 +190,7 @@ function random_walk_function(j::Float64, D::Int64, d::Int64, A::Array{Float64,5
     end
   end
 
-  @save "$(draws_folder)/draws_chain=$(chain_id+number_of_existing_draws).jld2" draws    # some allocations 
-  @save "$(ampls_folder)/ampls_chain=$(chain_id+number_of_existing_draws).jld2" ampls    # some allocations 
+  @save "$(draws_folder)/draws_chain=$(chain_id+number_of_existing_draws).jld2" draws
+  @save "$(ampls_folder)/ampls_chain=$(chain_id+number_of_existing_draws).jld2" ampls
 
 end

@@ -68,7 +68,7 @@ function angles_assemble(conf::Configuration, chains_to_assemble::Int64)
     angles_all_chains[:, id_chain] = angles[:]
     angles_sq_all_chains[:, id_chain] = angles_sq[:]
 
-  end # cycle in id_chain
+  end
 
   # average_angle_first_node 
   angles_numerical_fluctuations[1] = mean(angles_all_chains[1, :])
